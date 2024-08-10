@@ -1,16 +1,16 @@
 steps:
-- name: 'docker/compose'
-  args: [
-    '-p', 'europe-southwest1-docker.pkg.dev/${PROJECT_ID}/traefik-echo',
-    '-f', 'docker-compose.yml',
-    'up', '--build', 'web'
-  ]
-  env:
-  - 'DOMAIN=https://schoolbus-echo-xbdpujvn6q-no.a.run.app'
-- name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'tag',
-    'traefik-echo_build',
-    'europe-southwest1-docker.pkg.dev/${PROJECT_ID}/traefik-echo/traefik-echo_build'
-  ]
+  - name: 'docker/compose'
+    args: [
+      '-p', 'europe-southwest1-docker.pkg.dev/${PROJECT_ID}/traefik-echo',
+      '-f', 'docker-compose.yml',
+      'up', '--build', 'web'
+    ]
+    env:
+    - 'DOMAIN=https://schoolbus-echo-xbdpujvn6q-no.a.run.app'
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'tag',
+      'traefik-echo_build',
+      'europe-southwest1-docker.pkg.dev/${PROJECT_ID}/traefik-echo/traefik-echo_build'
+    ]
 images: ['europe-southwest1-docker.pkg.dev/${PROJECT_ID}/traefik-echo/traefik-echo_build']
