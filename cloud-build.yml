@@ -6,7 +6,7 @@ steps:
       'up', '--build', 'web'
     ]
     env:
-    - 'DOMAIN=https://schoolbus-echo-xbdpujvn6q-no.a.run.app'
+      - 'DOMAIN=https://schoolbus-echo-xbdpujvn6q-no.a.run.app'
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'tag',
