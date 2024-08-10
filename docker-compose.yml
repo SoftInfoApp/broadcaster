@@ -30,3 +30,8 @@ services:
 
 volumes:
   redis_data:
+
+networks:
+  default:
+    external:
+      name: cloudbuild
