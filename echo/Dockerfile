@@ -1,11 +1,11 @@
-FROM node:7-alpine
-
-RUN apk add --update --no-cache bash \
-	&& apk add --update --no-cache -t .build-deps python make g++ gcc \
-	&& npm i -g laravel-echo-server \
-	&& apk del .build-deps
+FROM node:12-alpine
 
 WORKDIR /app
 
-ENTRYPOINT ["laravel-echo-server"]
-CMD ["start"]
+COPY ../laravel-echo-server.json /app/laravel-echo-server.json
+
+RUN npm install -g laravel-echo-server
+
+EXPOSE 6001
+
+CMD ["laravel-echo-server", "start"]
