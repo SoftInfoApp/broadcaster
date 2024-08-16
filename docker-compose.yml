@@ -3,7 +3,7 @@ version: '2'
 services:
   proxy:
     image: traefik
-    command: --docker.domain="https://schoolbus-echo-xbdpujvn6q-no.a.run.app" --logLevel=DEBUG
+    command: --docker.domain='https://schoolbus-echo-xbdpujvn6q-no.a.run.app' --logLevel=DEBUG
     ports:
       - "80:80"
       - "443:443"
@@ -13,7 +13,7 @@ services:
       - ./traefik/acme.json:/etc/traefik/acme/acme.json
 
   redis:
-    image: "redis:3.2"
+    image: "redis:latest"
     command: "redis-server --appendonly yes"
     ports:
       - "6379:6379"
