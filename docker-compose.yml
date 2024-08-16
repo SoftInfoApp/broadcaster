@@ -3,7 +3,7 @@ version: '2'
 services:
   proxy:
     image: traefik
-    command: --docker.domain=${DOMAIN} --logLevel=DEBUG
+    command: --docker.domain="https://schoolbus-echo-xbdpujvn6q-no.a.run.app" --logLevel=DEBUG
     ports:
       - "80:80"
       - "443:443"
@@ -15,21 +15,22 @@ services:
   redis:
     image: "redis:3.2"
     command: "redis-server --appendonly yes"
+    ports:
+      - "6379:6379"
     volumes:
-      - "redis_data:/data"
+      - "./data:/data"
 
   echo:
     build: ./echo
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:echo.${DOMAIN}"
+      - "traefik.frontend.rule=Host:echo.'https://schoolbus-echo-xbdpujvn6q-no.a.run.app'"
       - "traefik.port=80"
     working_dir: "/usr/src/app"
+    depends_on:
+      - redis
     volumes:
       - "./:/usr/src/app"
-
-volumes:
-  redis_data:
 
 networks:
   default:
