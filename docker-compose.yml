@@ -13,7 +13,7 @@ services:
       - ./traefik/acme.json:/etc/traefik/acme/acme.json
 
   redis:
-    image: "redis:latest"
+    image: "redis"
     command: "redis-server --appendonly yes"
     ports:
       - "6379:6379"
