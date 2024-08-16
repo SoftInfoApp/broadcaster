@@ -4,6 +4,9 @@ services:
   proxy:
     image: traefik
     command: --docker.domain='https://schoolbus-echo-xbdpujvn6q-no.a.run.app' --logLevel=DEBUG
+    networks:
+      - cloudbuild
+      - default
     ports:
       - "80:80"
       - "443:443"
@@ -15,6 +18,8 @@ services:
   redis:
     image: "redis"
     command: "redis-server --appendonly yes"
+    networks:
+      - default
     ports:
       - "6379:6379"
     volumes:
@@ -22,6 +27,8 @@ services:
 
   echo:
     build: ./echo
+    networks:
+      - default
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:echo.'https://schoolbus-echo-xbdpujvn6q-no.a.run.app'"
@@ -32,8 +39,7 @@ services:
     volumes:
       - "./:/usr/src/app"
 
+
 networks:
-  default:
-    external: 
-      name: cloudbuild
-      external: true
+  cloudbuild:
+    external: true
